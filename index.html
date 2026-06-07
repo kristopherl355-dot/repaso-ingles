@@ -108,7 +108,7 @@ body {
   color: var(--muted);
   text-transform: uppercase;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 /* PROMPT */
@@ -118,13 +118,12 @@ body {
   background: var(--light);
   border-radius: 20px;
   padding: 12px 20px;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 800;
   color: var(--navy);
   display: inline-block;
   margin-bottom: 6px;
 }
-.prompt-sub { font-size: .9rem; color: var(--muted); font-weight: bold; }
 
 /* INPUT AREA */
 .input-wrap { position: relative; margin-bottom: 14px; }
@@ -173,7 +172,6 @@ body {
 }
 .feedback.ok { color: #16a34a; }
 .feedback.fail { color: #dc2626; }
-.feedback.hint-text { color: #d97706; }
 
 /* BUTTONS */
 .btn-row { display: flex; gap: 10px; }
@@ -235,7 +233,6 @@ body {
     <div class="prompt-area" id="prompt-area">
       <span class="prompt-emoji" id="prompt-emoji">❓</span>
       <div class="prompt-hint" id="prompt-hint">–</div>
-      <div class="prompt-sub" id="prompt-sub"></div>
     </div>
 
     <div class="char-display" id="char-display"></div>
@@ -276,59 +273,59 @@ const topics = {
   pronouns: {
     label: '🙋 Pronombres (Yo, Ella, Él...)',
     questions: [
-      { emoji:'👤', hint:'Pronombre para YO', sub:'(Yo soy / estoy)', answer:'I am', note:'¡"I am" significa Yo soy!' },
-      { emoji:'👩', hint:'Pronombre para ELLA', sub:'She + is', answer:'she is', note:'¡"She is" es Ella es!' },
-      { emoji:'👨', hint:'Pronombre para ÉL', sub:'He + is', answer:'he is', note:'¡"He is" es Él es!' },
-      { emoji:'👥', hint:'Pronombre para ELLOS', sub:'They + are', answer:'they are', note:'¡"They are" es Ellos son!' },
-      { emoji:'😊', hint:'Completa: I ___ happy', sub:'(yo soy feliz)', answer:'am', note:'¡Muy bien! Con "I" siempre va "am"' },
-      { emoji:'📚', hint:'Completa: She ___ a student', sub:'(ella es una estudiante)', answer:'is', note:'¡Excelente! Con "She" va "is"' },
-      { emoji:'🤝', hint:'Completa: They ___ friends', sub:'(ellos son amigos)', answer:'are', note:'¡Genial! Con "They" va "are"' },
-      { emoji:'🏃', hint:'Completa: He ___ fast', sub:'(él es rápido)', answer:'is', note:'¡Súper! Con "He" va "is"' },
+      { emoji:'👤', hint:'Pronombre para YO', answer:'I am', note:'¡"I am" significa Yo soy!' },
+      { emoji:'👩', hint:'Pronombre para ELLA', answer:'she is', note:'¡"She is" es Ella es!' },
+      { emoji:'👨', hint:'Pronombre para ÉL', answer:'he is', note:'¡"He is" es Él es!' },
+      { emoji:'👥', hint:'Pronombre para ELLOS', answer:'they are', note:'¡"They are" es Ellos son!' },
+      { emoji:'😊', hint:'Completa: I ___ happy', answer:'am', note:'¡Muy bien! Con "I" siempre va "am"' },
+      { emoji:'📚', hint:'Completa: She ___ a student', answer:'is', note:'¡Excelente! Con "She" va "is"' },
+      { emoji:'🤝', hint:'Completa: They ___ friends', answer:'are', note:'¡Genial! Con "They" va "are"' },
+      { emoji:'🏃', hint:'Completa: He ___ fast', answer:'is', note:'¡Súper! Con "He" va "is"' },
     ]
   },
   numbers: {
     label: '🔢 Números 1 al 10',
     questions: [
-      { emoji:'1️⃣', hint:'Escribe el número 1 en inglés:', sub:'', answer:'one' },
-      { emoji:'2️⃣', hint:'Escribe el número 2 en inglés:', sub:'', answer:'two' },
-      { emoji:'3️⃣', hint:'Escribe el número 3 en inglés:', sub:'', answer:'three' },
-      { emoji:'4️⃣', hint:'Escribe el número 4 en inglés:', sub:'', answer:'four' },
-      { emoji:'5️⃣', hint:'Escribe el número 5 en inglés:', sub:'', answer:'five' },
-      { emoji:'6️⃣', hint:'Escribe el número 6 en inglés:', sub:'', answer:'six' },
-      { emoji:'7️⃣', hint:'Escribe el número 7 en inglés:', sub:'', answer:'seven' },
-      { emoji:'8️⃣', hint:'Escribe el número 8 en inglés:', sub:'', answer:'eight' },
-      { emoji:'9️⃣', hint:'Escribe el número 9 en inglés:', sub:'', answer:'nine' },
-      { emoji:'🔟', hint:'Escribe el número 10 en inglés:', sub:'', answer:'ten' },
+      { emoji:'1️⃣', hint:'Escribe el número 1 en inglés:', answer:'one' },
+      { emoji:'2️⃣', hint:'Escribe el número 2 en inglés:', answer:'two' },
+      { emoji:'3️⃣', hint:'Escribe el número 3 en inglés:', answer:'three' },
+      { emoji:'4️⃣', hint:'Escribe el número 4 en inglés:', answer:'four' },
+      { emoji:'5️⃣', hint:'Escribe el número 5 en inglés:', answer:'five' },
+      { emoji:'6️⃣', hint:'Escribe el número 6 en inglés:', answer:'six' },
+      { emoji:'7️⃣', hint:'Escribe el número 7 en inglés:', answer:'seven' },
+      { emoji:'8️⃣', hint:'Escribe el número 8 en inglés:', answer:'eight' },
+      { emoji:'9️⃣', hint:'Escribe el número 9 en inglés:', answer:'nine' },
+      { emoji:'🔟', hint:'Escribe el número 10 en inglés:', answer:'ten' },
     ]
   },
   colors: {
     label: '🎨 Los Colores',
     questions: [
-      { emoji:'🔴', hint:'¿Cómo se dice ROJO en inglés?', sub:'', answer:'red' },
-      { emoji:'🔵', hint:'¿Cómo se dice AZUL en inglés?', sub:'', answer:'blue' },
-      { emoji:'🟢', hint:'¿Cómo se dice VERDE en inglés?', sub:'', answer:'green' },
-      { emoji:'🟡', hint:'¿Cómo se dice AMARILLO en inglés?', sub:'', answer:'yellow' },
-      { emoji:'🟠', hint:'¿Cómo se dice NARANJA en inglés?', sub:'', answer:'orange' },
-      { emoji:'🩷', hint:'¿Cómo se dice ROSA en inglés?', sub:'', answer:'pink' },
-      { emoji:'🟣', hint:'¿Cómo se dice MORADO en inglés?', sub:'', answer:'purple' },
-      { emoji:'⚪', hint:'¿Cómo se dice BLANCO en inglés?', sub:'', answer:'white' },
-      { emoji:'⚫', hint:'¿Cómo se dice NEGRO en inglés?', sub:'', answer:'black' },
+      { emoji:'🔴', hint:'¿Cómo se dice ROJO en inglés?', answer:'red' },
+      { emoji:'🔵', hint:'¿Cómo se dice AZUL en inglés?', answer:'blue' },
+      { emoji:'🟢', hint:'¿Cómo se dice VERDE en inglés?', answer:'green' },
+      { emoji:'🟡', hint:'¿Cómo se dice AMARILLO en inglés?', answer:'yellow' },
+      { emoji:'🟠', hint:'¿Cómo se dice NARANJA en inglés?', answer:'orange' },
+      { emoji:'🩷', hint:'¿Cómo se dice ROSA en inglés?', answer:'pink' },
+      { emoji:'🟣', hint:'¿Cómo se dice MORADO en inglés?', answer:'purple' },
+      { emoji:'⚪', hint:'¿Cómo se dice BLANCO en inglés?', answer:'white' },
+      { emoji:'⚫', hint:'¿Cómo se dice NEGRO en inglés?', answer:'black' },
     ]
   },
   body: {
     label: '🫁 Partes del Cuerpo',
     questions: [
-      { emoji:'👁️', hint:'¿Cómo se dice OJOS en inglés?', sub:'(Los dos ojitos)', answer:'eyes' },
-      { emoji:'👃', hint:'¿Cómo se dice NARIZ en inglés?', sub:'', answer:'nose' },
-      { emoji:'👂', hint:'¿Cómo se dice OREJAS en inglés?', sub:'(Las dos orejitas)', answer:'ears' },
-      { emoji:'👄', hint:'¿Cómo se dice BOCA en inglés?', sub:'', answer:'mouth' },
-      { emoji:'🦷', hint:'¿Cómo se dice DIENTES en inglés?', sub:'', answer:'teeth' },
-      { emoji:'💇', hint:'¿Cómo se dice CABELLO en inglés?', sub:'', answer:'hair' },
-      { emoji:'🤚', hint:'¿Cómo se dice MANO en inglés?', sub:'', answer:'hand' },
-      { emoji:'🦶', hint:'¿Cómo se dice PIE en inglés?', sub:'', answer:'foot' },
-      { emoji:'🦵', hint:'¿Cómo se dice PIERNA en inglés?', sub:'', answer:'leg' },
-      { emoji:'💪', hint:'¿Cómo se dice BRAZO en inglés?', sub:'', answer:'arm' },
-      { emoji:'🧠', hint:'¿Cómo se dice CABEZA en inglés?', sub:'', answer:'head' },
+      { emoji:'👁️', hint:'¿Cómo se dice OJOS en inglés?', answer:'eyes' },
+      { emoji:'👃', hint:'¿Cómo se dice NARIZ en inglés?', answer:'nose' },
+      { emoji:'👂', hint:'¿Cómo se dice OREJAS en inglés?', answer:'ears' },
+      { emoji:'👄', hint:'¿Cómo se dice BOCA en inglés?', answer:'mouth' },
+      { emoji:'🦷', hint:'¿Cómo se dice DIENTES en inglés?', answer:'teeth' },
+      { emoji:'💇', hint:'¿Cómo se dice CABELLO en inglés?', answer:'hair' },
+      { emoji:'🤚', hint:'¿Cómo se dice MANO en inglés?', answer:'hand' },
+      { emoji:'🦶', hint:'¿Cómo se dice PIE en inglés?', answer:'foot' },
+      { emoji:'🦵', hint:'¿Cómo se dice PIERNA en inglés?', answer:'leg' },
+      { emoji:'💪', hint:'¿Cómo se dice BRAZO en inglés?', answer:'arm' },
+      { emoji:'🧠', hint:'¿Cómo se dice CABEZA en inglés?', answer:'head' },
     ]
   }
 };
@@ -380,7 +377,6 @@ function loadQ() {
   document.getElementById('topic-label').textContent = topics[currentTopic].label.toUpperCase();
   document.getElementById('prompt-emoji').textContent = q.emoji;
   document.getElementById('prompt-hint').textContent = q.hint;
-  document.getElementById('prompt-sub').textContent = q.sub || '';
   document.getElementById('feedback').textContent = '';
   document.getElementById('feedback').className = 'feedback';
   document.getElementById('answer-input').value = '';
@@ -446,13 +442,8 @@ function checkAnswer() {
     input.className = 'answer-input wrong-input';
     setTimeout(() => input.classList.remove('wrong-input'), 400);
 
-    if (attempts >= 2) {
-      fb.textContent = `💡 ¡Una ayudita! Empieza con la letra "${correct[0].toUpperCase()}"`;
-      fb.className = 'feedback hint-text';
-    } else {
-      fb.textContent = `✨ ¡Casi! Inténtalo otra vez, ¡tú puedes!`;
-      fb.className = 'feedback fail';
-    }
+    fb.textContent = `✨ ¡Casi! Inténtalo otra vez, ¡tú puedes!`;
+    fb.className = 'feedback fail';
   }
   updateScore();
 }
@@ -463,7 +454,7 @@ function skipQ() {
   const fb = document.getElementById('feedback');
   const input = document.getElementById('answer-input');
   fb.textContent = `👉 La palabrita era: ${correct.toUpperCase()}`;
-  fb.className = 'feedback hint-text';
+  fb.className = 'feedback ok';
   input.value = correct;
   answered = true;
   renderCharDisplay(correct);
